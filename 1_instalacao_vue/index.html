@@ -16,7 +16,13 @@
     
 <div id="app">
 
-    <p>O meu nome eh {{ name }} e idade eh {{ age }}</p>
+    <form id="app-form">
+        <input type="text" v-model="input_name" placeholder="Digite seu nome">
+        <input type="submit" value="Enviar" v-on:click="submitForm">
+    </form>
+
+    <p>O meu nome eh {{ name }}</p>     <!-- Campo alterado com o evento do click.-->
+    <p>DataBiding = {{ input_name}}</p>  <!-- Campo alterado em tempo real.-->
 
 </div>
 
