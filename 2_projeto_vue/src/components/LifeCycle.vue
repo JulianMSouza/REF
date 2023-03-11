@@ -15,6 +15,8 @@ export default{
             this.nome = "Matheus"
         }, 1000)
 
+       this.lifeCycle();
+       console.log(`created`);
         
     }, 
     mounted(){  //Mounted tem por questao de hierarquia prioridade para sobreescrever o componente.
@@ -22,6 +24,15 @@ export default{
         setTimeout(() => {
             this.nome = "Pedro"
         }, 2000)
+       
+        this.lifeCycle();
+        console.log(`mounted`);
+
+    },
+    methods: {
+        lifeCycle(){
+            console.log(`executou`);
+        }
     }
 }
 
