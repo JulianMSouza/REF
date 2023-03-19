@@ -1,5 +1,6 @@
 <template>
     <div>
+
         <p v-if="esta_trabalhando">Estou trabalhando no momento.</p>
         <p v-else >Estou procurando emprego.</p>
         <p>Utilizo as seguintes tecnologias para backend:</p>
@@ -33,14 +34,18 @@ import Picture from './Picture.vue'
 export default {
  
     name: 'Info',
+    props: {
+        email: String,
+        esta_trabalhando: Boolean
+    },
     components: {
         Picture 
             } ,
     data(){
         return {
-            esta_trabalhando: true,
+           // esta_trabalhando: true,
             mostrar_email: false,
-            email: 'matheus@email.com',
+            //email: 'matheus@email.com',
             meu_link: 'https://www.google.com.br',
             textoBotaoEmail: 'Mostrar Email',
             backend_technologies: ['JavaScript', 'Php', 'python','Java'],

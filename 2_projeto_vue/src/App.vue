@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Header />
+        <Header :esta_logado=true />
         <PrimeiroComponente   />   <!-- teg de vue para componentes-->
         <p class="paragrafo-pai">O dado de App eh {{ testando }}</p>
         <LifeCycle />
