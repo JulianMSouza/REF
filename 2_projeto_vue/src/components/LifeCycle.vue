@@ -26,12 +26,12 @@ export default{
         }, 2000)
        
         this.lifeCycle();
-        console.log(`mounted`);
+        //console.log(`mounted`);
 
     },
     methods: {
         lifeCycle(){
-            console.log(`executou`);
+           // console.log(`executou`);
         }
     }
 }
