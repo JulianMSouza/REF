@@ -1,5 +1,6 @@
 <template>
     <div id="burger-table">
+      <Message :msg="msg" v-show="msg" />
         <div>
             <div id="burger-table-heading">
                 <div class="order-id">#:</div>
@@ -23,9 +24,9 @@
                     </ul>
                 </div>
                 <div>
-                    <select name="status" class="status">
+                    <select name="status" class="status" @change="updateBurger($event,burger.id)">
                         <option value="">Selecione:</option>
-                        <option v-for="s in status" :key="s.id" value="s.tipo" :selected="burger.status == s.tipo" >
+                        <option v-for="s in status" :key="s.id" :value="s.tipo" :selected="burger.status == s.tipo" >
                             {{ s.tipo }}
                         </option>
                     </select>
@@ -38,13 +39,17 @@
 </template>
 
 <script>
+
+import Message from './Message.vue'
+
 export default{
     name: "Dashboard",
     data(){
         return{
             burgers: null,
             burger_id: null,
-            status: []
+            status: [],
+            msg: null
         }
     },
     methods: {
@@ -69,8 +74,39 @@ export default{
           });
 
           const data =  await req.json();
-          //msg
+
+           //Colocar mensagem de sistema
+           this.msg = `Pedido removido com sucesso`;
+
+          //Limpar mensagem de retorno do pedido realizado.
+          setTimeout(() => this.msg = "", 3000);
+
+
           this.getPedidos();
+
+        },
+        async updateBurger(event,id){
+
+          const option = event.target.value;
+
+          const dataJson = JSON.stringify({status: option});
+
+          const req = await fetch(`http://localhost:3000/burgers/${id}`, {
+            method: "PATCH",    ///patch garante que ora atualizar somente o campo enviado.
+            headers: {"Content-Type": "application/json"},
+            body: dataJson
+          });
+
+          const res = await req.json();
+
+          //Colocar mensagem de sistema
+          this.msg = `O Pedido N${res.id} foi atualizado para ${res.status} !`;
+
+          //Limpar mensagem de retorno do pedido realizado.
+          setTimeout(() => this.msg = "", 3000);
+
+
+          console.log(res);
 
         }
 
@@ -80,6 +116,9 @@ export default{
     mounted(){
          this.getPedidos();
 
+    },
+    components:{
+      Message
     }
 }
 </script>
